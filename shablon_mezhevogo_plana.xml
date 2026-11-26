@@ -1,90 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<MP Version="09" NameSoftware="АРГО" VersionSoftware="7.2.12620" GUID="80b23989-d6c2-4e6f-8407-65fa991739e2">
+<?xml version='1.0' encoding='utf-8'?>
+<MP Version="09" NameSoftware="АРГО" VersionSoftware="7.2.12620" GUID="eacb52a8-e9b5-4222-8585-ffc5d3e20017">
   <Package>
     <SpecifyParcel>
-      <ExistParcel CadastralNumber="52:25:0010730:153">
-        <CadastralBlock>52:25:0010730</CadastralBlock>
+      <ExistParcel>
         <ProvidingPassCadastralNumbers>
           <Other>Земли (земельные участки) общего пользования</Other>
         </ProvidingPassCadastralNumbers>
-        <ObjectsRealty>
-          <ObjectRealty>
-            <InnerCadastralNumbers>
-              <CadastralNumber>52:25:0010730:213</CadastralNumber>
-            </InnerCadastralNumbers>
-          </ObjectRealty>
-        </ObjectsRealty>
-        <Area>
-          <Area>473</Area>
-          <Unit>055</Unit>
-          <Inaccuracy>8</Inaccuracy>
-          <Formula>3,5*Mt*√(P) = 3,5*0,10*√(473) = 8</Formula>
-        </Area>
-        <EntitySpatial CsCode="52.2" Name="МСК-52">
-          <SpatialElement>
-            <SpelementUnit TypeUnit="Точка">
-              <NewOrdinate X="509107.88" Y="2226668.88" NumGeopoint="1" DeltaGeopoint="0.10" PointPref="н" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-            <SpelementUnit TypeUnit="Точка">
-              <NewOrdinate X="509109.52" Y="2226693.11" NumGeopoint="2" DeltaGeopoint="0.10" PointPref="н" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-            <SpelementUnit TypeUnit="Точка">
-              <NewOrdinate X="509090.34" Y="2226694.15" NumGeopoint="3" DeltaGeopoint="0.10" PointPref="н" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-            <SpelementUnit TypeUnit="Точка">
-              <NewOrdinate X="509088.18" Y="2226670.03" NumGeopoint="4" DeltaGeopoint="0.10" PointPref="н" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-            <SpelementUnit TypeUnit="Точка">
-              <OldOrdinate X="509105.42" Y="2226668.91" NumGeopoint="5" />
-              <NewOrdinate X="509105.42" Y="2226668.91" NumGeopoint="5" DeltaGeopoint="0.10" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-            <SpelementUnit TypeUnit="Точка">
-              <OldOrdinate X="509107.02" Y="2226668.88" NumGeopoint="6" />
-              <NewOrdinate X="509107.02" Y="2226668.88" NumGeopoint="6" DeltaGeopoint="0.10" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-            <SpelementUnit TypeUnit="Точка">
-              <NewOrdinate X="509107.88" Y="2226668.88" NumGeopoint="1" DeltaGeopoint="0.10" PointPref="н" GeopointOpred="692005000000" Formula="√(m0^2 + m1^2) = √(0,04^2 + 0,10^2) = 0,10" />
-            </SpelementUnit>
-          </SpatialElement>
-          <Borders>
-            <Border Spatial="1" Point1="1" Point2="2">
-              <Edge>
-                <Length>24.29</Length>
-              </Edge>
-            </Border>
-            <Border Spatial="1" Point1="2" Point2="3">
-              <Edge>
-                <Length>19.21</Length>
-              </Edge>
-            </Border>
-            <Border Spatial="1" Point1="3" Point2="4">
-              <Edge>
-                <Length>24.22</Length>
-              </Edge>
-            </Border>
-            <Border Spatial="1" Point1="4" Point2="5">
-              <Edge>
-                <Length>17.28</Length>
-              </Edge>
-            </Border>
-            <Border Spatial="1" Point1="5" Point2="6">
-              <Edge>
-                <Length>1.6</Length>
-              </Edge>
-            </Border>
-            <Border Spatial="1" Point1="6" Point2="1">
-              <Edge>
-                <Length>0.86</Length>
-              </Edge>
-            </Border>
-          </Borders>
-        </EntitySpatial>
+        <EntitySpatial CsCode="52.2">
+          </EntitySpatial>
         <AreaInGKN>500</AreaInGKN>
-        <DeltaArea>27</DeltaArea>
       </ExistParcel>
     </SpecifyParcel>
   </Package>
-  <GeneralCadastralWorks DateCadastral="2026-11-09">
+  <GeneralCadastralWorks>
     <Contractor>
       <FamilyName>Лезов</FamilyName>
       <FirstName>Эдуард</FirstName>
@@ -102,72 +30,22 @@
       <SelfRegulatoryOrganization>Объединение профессионалов кадастровой деятельности</SelfRegulatoryOrganization>
       <AgreementCadWork>
         <Name>Договор</Name>
-        <NumberAgreement>733-ФК</NumberAgreement>
-        <DateAgreement>2025-10-07</DateAgreement>
+        <NumberAgreement />
+        <DateAgreement />
       </AgreementCadWork>
     </Contractor>
-    <Reason>уточнением описания местоположения границ и (или) площади земельного участка с кадастровым номером 52:25:0010730:153</Reason>
+    <Reason>уточнением описания местоположения границ и (или) площади земельного участка с кадастровым номером</Reason>
     <Clients>
       <Client>
         <Person>
-          <FamilyName>Рощина</FamilyName>
-          <FirstName>Ольга</FirstName>
-          <Patronymic>Юрьевна</Patronymic>
-          <SNILS>10815025617</SNILS>
+          <FamilyName />
+          <FirstName />
+          <Patronymic />
         </Person>
       </Client>
     </Clients>
   </GeneralCadastralWorks>
   <InputData>
-    <Documents>
-      <Document>
-        <CodeDocument>008002099000</CodeDocument>
-        <Name>Выписка из ЕГРН</Name>
-        <Number>б/н</Number>
-        <Date>2026-09-25</Date>
-        <IssueOrgan>Управление Федеральной службы государственной регистрации, кадастра и картографии</IssueOrgan>
-        <AppliedFile Kind="01" Name="Applied_files\выписка.pdf" />
-      </Document>
-      <Document>
-        <CodeDocument>558403010000</CodeDocument>
-        <Series>52-АГ</Series>
-        <Number>727403</Number>
-        <Date>2010-10-07</Date>
-        <IssueOrgan>Управление Федеральной службы государственной регистрации кадастра и картографии по Нижегородской области</IssueOrgan>
-        <AppliedFile Kind="01" Name="Applied_files\св-во.pdf" />
-      </Document>
-      <Document>
-        <CodeDocument>558301010000</CodeDocument>
-        <Series>77АД</Series>
-        <Number>9401559</Number>
-        <Date>2025-06-24</Date>
-        <IssueOrgan>Нотариусом</IssueOrgan>
-        <AppliedFile Kind="01" Name="Applied_files\доверенность.pdf" />
-      </Document>
-      <Document>
-        <CodeDocument>008002099000</CodeDocument>
-        <Name>Выписка из протокола</Name>
-        <Number>б/н</Number>
-        <Date>2025-06-29</Date>
-        <IssueOrgan>Председателем ТСН</IssueOrgan>
-        <AppliedFile Kind="01" Name="Applied_files\протокол собр.pdf" />
-      </Document>
-      <Document>
-        <CodeDocument>558217000000</CodeDocument>
-        <Name>Кадастровый план территории</Name>
-        <Number>КУВИ-001/2026-132446613</Number>
-        <Date>2026-09-29</Date>
-        <IssueOrgan>Филиал публично-правовой компании "Роскадастр" по Нижегородской области</IssueOrgan>
-      </Document>
-      <Document>
-        <CodeDocument>558500000000</CodeDocument>
-        <Name>Решения, уведомления, расписки</Name>
-        <Number>170-19355/2023-В</Number>
-        <Date>2023-07-17</Date>
-        <IssueOrgan>Публичная правовая компания "Роскадастр"</IssueOrgan>
-        <AppliedFile Kind="01" Name="Applied_files\Сопровод.pdf" />
-      </Document>
-    </Documents>
     <GeodesicBases>
       <GeodesicBase CsCode="52.2" Name="МСК-52, зона 2">
         <PType>референсная базовая станция</PType>
@@ -189,59 +67,6 @@
         </ConditionPoint>
       </GeodesicBase>
     </GeodesicBases>
-    <MeansSurvey>
-      <MeanSurvey>
-        <Name>Аппаратура геодезическая спутниковая EFT M3 PLUS</Name>
-        <Number>SE11655987</Number>
-        <CertificateVerification>№С-ГСХ/26-09-2025/468568133 выдано ООО "ЦИПСИ НАВГЕОТЕХ-ДИАГНОСТИКА" 26.09.2025, действительно до 25.09.2026</CertificateVerification>
-      </MeanSurvey>
-    </MeansSurvey>
   </InputData>
-  <Conclusion>Межевой план подготовлен в связи с уточнением описания местоположения границ и (или) площади земельного участка с кадастровым номером 52:25:0010730:153.
-Земельный участок расположен по адресу (местоположению): Российская Федерация, Нижегородская область, г.о. город Нижний Новгород, г. Кстово, тер. ТСН Кудьма, з/у 153, согласно сведениям ЕГРН. Земельный участок с кадастровым номером 52:25:0010730:153 располагается в территориальной зоне СТ (Зона ведения садоводства). Согласно правилам землепользования и застройки города Нижнего Новгорода, утвержденные приказом министерства градостроительной деятельности и развития агломераций Нижегородской области от 30 августа 2023 г. № 07-01-03/78. Минимальное значение площади установлено - 500 кв.м., максимальное значение площади для данной зоны 1500 кв.м. Согласование проводилось в индивидуальном порядке. Границы земельного участка определялись при натурном обследовании на территории указанной собственником. От точки н1 до н2  согласование границы проводилось в индивидуальном порядке, от н2 до н4 согласование провожилось в индивидуальном порядке, от н4 до 6 граница земельного участка установлена, от точки 6 до точки н1 граница согласовывалась в индивидуальном порядке. Доступ к данному земельному участку осуществляется через земли общего пользования</Conclusion>
-  <SchemeGeodesicPlotting Kind="01" Name="Applied_files\SchemeGeodesicPlotting.pdf" />
-  <SchemeDisposition Kind="01" Name="Applied_files\SchemeDisposition.pdf" />
-  <DiagramParcelsSubParcels>
-    <AppliedFile Kind="01" Name="Applied_files\DiagramParcelsSubParcels_1.pdf" />
-  </DiagramParcelsSubParcels>
-  <AgreementDocument>
-    <AppliedFile Kind="01" Name="Applied_files\акт согл подп.pdf" />
-  </AgreementDocument>
-  <Appendix>
-    <AppliedFiles>
-      <NumberAppendix>1</NumberAppendix>
-      <NameAppendix>Выписка из ЕГРН № б/н от 25 сентября 2026 г., выдан Управление Федеральной службы государственной регистрации, кадастра и картографии</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\выписка.pdf" />
-    </AppliedFiles>
-    <AppliedFiles>
-      <NumberAppendix>2</NumberAppendix>
-      <NameAppendix>Свидетельство о государственной регистрации права серия 52-АГ № 727403 от 7 октября 2010 г., выдан Управление Федеральной службы государственной регистрации кадастра и картографии по Нижегородской области</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\св-во.pdf" />
-    </AppliedFiles>
-    <AppliedFiles>
-      <NumberAppendix>3</NumberAppendix>
-      <NameAppendix>Доверенность серия 77АД № 9401559 от 24 июня 2025 г., выдан Нотариусом</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\доверенность.pdf" />
-    </AppliedFiles>
-    <AppliedFiles>
-      <NumberAppendix>4</NumberAppendix>
-      <NameAppendix>Выписка из протокола № б/н от 29 июня 2025 г., выдан Председателем ТСН</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\протокол собр.pdf" />
-    </AppliedFiles>
-    <AppliedFiles>
-      <NumberAppendix>5</NumberAppendix>
-      <NameAppendix>Решения, уведомления, расписки № 170-19355/2023-В от 17 июля 2023 г., выдан Публичная правовая компания "Роскадастр"</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\Сопровод.pdf" />
-    </AppliedFiles>
-    <AppliedFiles>
-      <NumberAppendix>6</NumberAppendix>
-      <NameAppendix>ОПД</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\опд.pdf" />
-    </AppliedFiles>
-    <AppliedFiles>
-      <NumberAppendix>7</NumberAppendix>
-      <NameAppendix>Текстовая часть межевого плана</NameAppendix>
-      <AppliedFile Kind="01" Name="Applied_files\TextPart_c42e2fdd-fa41-4ea1-8f62-ae21fdca62f4.pdf" />
-    </AppliedFiles>
-  </Appendix>
+  <Conclusion>Межевой план подготовлен в связи с уточнением описания местоположения границ и (или) площади земельного участка с кадастровым номером _. Земельный участок расположен по адресу: {{PARCEL_ADDRESS}}, согласно сведениям ЕГРН. _ _ Согласование границ земельного участка проводилось в индивидуальном порядке. Границы земельного участка определялись при натурном обследовании на территории, указанной собственником. _</Conclusion>
 </MP>

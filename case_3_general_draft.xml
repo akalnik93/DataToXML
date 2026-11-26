@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MP Version="09" NameSoftware="АРГО" VersionSoftware="7.2.12620" GUID="7bf8a213-8452-468f-902d-2ec3a2689b92">
+  <Package>
+    <SpecifyParcel>
+      <ExistParcel>
+        <ProvidingPassCadastralNumbers>
+          <Other>Земли (земельные участки) общего пользования</Other>
+        </ProvidingPassCadastralNumbers>
+        <EntitySpatial CsCode="52.2">
+          </EntitySpatial>
+        <AreaInGKN>500</AreaInGKN>
+      </ExistParcel>
+    </SpecifyParcel>
+  </Package>
+  <GeneralCadastralWorks>
+    <Contractor>
+      <FamilyName>Лезов</FamilyName>
+      <FirstName>Эдуард</FirstName>
+      <Patronymic>Юрьевич</Patronymic>
+      <SNILS>21007360192</SNILS>
+      <CadastralEngineerRegistryNumber>2186</CadastralEngineerRegistryNumber>
+      <DateEntering>2016-07-08</DateEntering>
+      <Telephone>раб.: 89159561234</Telephone>
+      <Address>603028, Нижегородская обл, Нижний Новгород г, Московское ш, 12,ДОМ, оф.16</Address>
+      <Email>btinnov@yandex.ru</Email>
+      <Organization>
+        <Name>ООО "БТИ ПО НО"</Name>
+        <AddressOrganization>Нижегородская обл, г Нижний Новгород, Московское шоссе, д 12дом, помещение С3, 16 офис</AddressOrganization>
+      </Organization>
+      <SelfRegulatoryOrganization>Объединение профессионалов кадастровой деятельности</SelfRegulatoryOrganization>
+      <AgreementCadWork>
+        <Name>Договор</Name>
+        <NumberAgreement>636-ФК</NumberAgreement>
+        <DateAgreement>2026-08-14</DateAgreement>
+      </AgreementCadWork>
+    </Contractor>
+    <Reason>уточнением описания местоположения границ и (или) площади земельного участка с кадастровым номером</Reason>
+    <Clients>
+      <Client>
+        <Person>
+          <FamilyName>Ануфриева</FamilyName>
+          <FirstName>Елена</FirstName>
+          <Patronymic>Геннадьевна</Patronymic>
+        <Document><CodeDocument>008001001000</CodeDocument><Name>Паспорт гражданина Российской Федерации</Name><Series>2220</Series><Number>062014</Number><Date>2019-11-29</Date><IssueOrgan>ГУ МВД РОССИИ ПО НИЖЕГОРОДСКОЙ ОБЛАСТИ</IssueOrgan></Document></Person>
+      </Client>
+    </Clients>
+  </GeneralCadastralWorks>
+  <InputData>
+    <GeodesicBases>
+      <GeodesicBase CsCode="52.2" Name="МСК-52, зона 2">
+        <PType>референсная базовая станция</PType>
+        <PName>NNOV</PName>
+        <PKind>тип3</PKind>
+        <PKlass>3</PKlass>
+        <OrdX>526514.91</OrdX>
+        <OrdY>2218215.85</OrdY>
+        <ConditionPoint AsOfDate="2022-03-15">
+          <OutdoorPoint>
+            <NetworkPoints>627001000000</NetworkPoints>
+          </OutdoorPoint>
+          <CenterPoint>
+            <NetworkPoints>627001000000</NetworkPoints>
+          </CenterPoint>
+          <Mark>
+            <NetworkPoints>627001000000</NetworkPoints>
+          </Mark>
+        </ConditionPoint>
+      </GeodesicBase>
+    </GeodesicBases>
+  </InputData>
+  <Conclusion>Межевой план подготовлен в связи с уточнением описания местоположения границ и (или) площади земельного участка с кадастровым номером _.
+Земельный участок расположен по адресу: Нижегородская  обл ,  Линдовский  с/ с,СНТ  №8 ОАО ГАЗ,  уч  157, согласно сведениям ЕГРН.
+_
+_
+Согласование границ земельного участка проводилось в индивидуальном порядке. Границы земельного участка определялись при натурном обследовании на территории, указанной собственником.
+_</Conclusion>
+</MP>

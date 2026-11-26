@@ -64,14 +64,12 @@ def extract_additional_fields(application: str, contract: str | None, consent: s
     """Extract useful values for review when this MP template has no safe target node."""
     found: list[str] = []
     if consent:
-        normalized = re.sub(r"П\s+а(спорт)", r"Паспорт", consent, flags=re.I)
-        normalized = re.sub(r"В\s+ыдан", "Выдан", normalized, flags=re.I)
-        passport = re.search(
-            r"паспорт\s+(\d{4})\s*№?\s*(\d{6})\s+выдан\s+(.+?),\s*(\d{2}\.\d{2}\.\d{4})",
-            normalized, re.I,
-        )
+        passport = extract_passport(consent)
         if passport:
-            found.append(f"Паспорт: {passport.group(1)} № {passport.group(2)}, выдан {passport.group(4)} ({passport.group(3)})")
+            found.append(
+                f"Паспорт: {passport['series']} № {passport['number']}, "
+                f"выдан {passport['date_display']} ({passport['issuer']})"
+            )
         address = re.search(r"зарегистрированный\s+по\s+адресу:\s*(.+?)\s*,\s*даю", consent, re.I)
         if address:
             found.append(f"Адрес регистрации: {address.group(1).strip()}")
@@ -79,11 +77,9 @@ def extract_additional_fields(application: str, contract: str | None, consent: s
     if phone:
         phone_value = "".join(phone.group(1).split())
         found.append(f"Телефон: {phone_value}")
-    parcel_address = None
-    if contract:
-        parcel_address = re.search(r"расположен\s+по\s+адресу:\s*(.+?)\s*\.\s*1\.3", contract, re.I)
+    parcel_address = extract_parcel_address(contract)
     if parcel_address:
-        found.append(f"Адрес участка: {parcel_address.group(1).strip()}")
+        found.append(f"Адрес участка: {parcel_address}")
         cost = re.search(r"общая\s+стоимость\s+работ\s+составляет\s+([\d\s]+(?:[.,]\d{2})?)", contract, re.I)
         if cost:
             cost_value = "".join(cost.group(1).split())
@@ -98,19 +94,67 @@ def extract_additional_fields(application: str, contract: str | None, consent: s
     return found
 
 
+def extract_passport(consent: str | None) -> dict[str, str] | None:
+    """Extract a complete Russian passport record from the consent document."""
+    if not consent:
+        return None
+    normalized = re.sub(r"П\s+а(спорт)", r"Паспорт", consent, flags=re.I)
+    normalized = re.sub(r"В\s+ыдан", "Выдан", normalized, flags=re.I)
+    match = re.search(
+        r"паспорт\s+(\d{4})\s*№?\s*(\d{6})\s+выдан\s+(.+?),\s*(\d{2}\.\d{2}\.\d{4})",
+        normalized, re.I,
+    )
+    if not match:
+        return None
+    series, number, issuer, date_display = (part.strip() for part in match.groups())
+    date_iso = f"{date_display[6:10]}-{date_display[3:5]}-{date_display[:2]}"
+    return {
+        "series": series,
+        "number": number,
+        "issuer": issuer,
+        "date_display": date_display,
+        "date_iso": date_iso,
+    }
+
+
+def extract_parcel_address(contract: str | None) -> str | None:
+    if not contract:
+        return None
+    match = re.search(r"расположен\s+по\s+адресу:\s*(.+?)\s*\.\s*1\.3", contract, re.I)
+    if not match:
+        return None
+    return match.group(1).strip().rstrip(" .")
+
+
 def _load_fields(documents: list[Path]) -> tuple[tuple[str, str, str, str, str, str | None], list[str]]:
     application, contract, consent = identify_documents(documents)
     return extract_fields(application, contract, consent), extract_additional_fields(application, contract, consent)
 
 
-def _summary(family: str, first: str, patronymic: str, number: str, date: str, snils: str | None, additional: list[str]) -> str:
-    text = f"{family} {first} {patronymic}; договор № {number} от {date}; СНИЛС {'извлечён' if snils else 'не найден в ОПД'}"
+def _summary(family: str, first: str, patronymic: str, number: str, date: str, snils: str | None, passport: dict[str, str] | None, parcel_address: str | None, additional: list[str]) -> str:
+    identifier = "СНИЛС извлечён и записан" if snils else (
+        "СНИЛС не найден; паспорт извлечён и записан" if passport else "СНИЛС и паспорт не найдены"
+    )
+    text = f"{family} {first} {patronymic}; договор № {number} от {date}; {identifier}"
+    if parcel_address:
+        text += "; адрес участка из договора добавлен в заключение"
+    additional = [
+        item for item in additional
+        if not item.startswith(("Паспорт:", "Адрес участка:"))
+    ]
     if additional:
         text += "\n\nИзвлечено для проверки, но не записано в XML (в шаблоне нет подтверждённых для этого полей):\n• " + "\n• ".join(additional)
     return text
 
 
-def _set_client(root: ET.Element, family: str, first: str, patronymic: str, snils: str | None) -> None:
+def _set_client(
+    root: ET.Element,
+    family: str,
+    first: str,
+    patronymic: str,
+    snils: str | None,
+    passport: dict[str, str] | None,
+) -> None:
     client = root.find(".//Clients/Client/Person")
     if client is None:
         raise ValueError("В шаблоне не найден узел клиента Person")
@@ -120,9 +164,29 @@ def _set_client(root: ET.Element, family: str, first: str, patronymic: str, snil
             raise ValueError(f"В шаблоне не найдено поле {tag}")
         node.text = value
     snils_node = client.find("SNILS")
-    if snils_node is not None:
-        # Never leave the previous client's SNILS in a generated draft.
+    # Keep exactly one identification route: prefer SNILS whenever it was found.
+    if snils:
+        if snils_node is None:
+            snils_node = ET.SubElement(client, "SNILS")
         snils_node.text = snils
+        for document in client.findall("Document"):
+            client.remove(document)
+    else:
+        if snils_node is not None:
+            client.remove(snils_node)
+        for document in client.findall("Document"):
+            client.remove(document)
+        if passport:
+            document = ET.SubElement(client, "Document")
+            for tag, value in (
+                ("CodeDocument", "008001001000"),
+                ("Name", "Паспорт гражданина Российской Федерации"),
+                ("Series", passport["series"]),
+                ("Number", passport["number"]),
+                ("Date", passport["date_iso"]),
+                ("IssueOrgan", passport["issuer"]),
+            ):
+                ET.SubElement(document, tag).text = value
 
 
 def _set_agreement(root: ET.Element, number: str, date: str) -> None:
@@ -136,45 +200,44 @@ def _set_agreement(root: ET.Element, number: str, date: str) -> None:
                 node.text = value
 
 
+def _set_reason(root: ET.Element) -> None:
+    node = root.find("./GeneralCadastralWorks/Reason")
+    if node is None:
+        raise ValueError("В шаблоне не найдено поле Reason")
+    node.text = (
+        "уточнением описания местоположения границ и (или) площади "
+        "земельного участка с кадастровым номером"
+    )
+
+
 def build_application_only_xml(documents: list[Path], template_xml: Path) -> tuple[bytes, str]:
-    """Clear sample-specific data and file references, retaining XML structure."""
+    """Fill DOCX-derived fields into the shared, case-neutral XML scaffold."""
     (family, first, patronymic, number, date, snils), additional = _load_fields(documents)
+    _application_text, contract_text, consent_text = identify_documents(documents)
     tree = ET.parse(template_xml)
     root = tree.getroot()
 
-    # Remove all references to supporting files so ARGO does not look for absent PDFs.
-    for parent in root.iter():
-        for child in list(parent):
-            if child.tag in {"AppliedFile", "AppliedFiles"}:
-                parent.remove(child)
-    # These two attachments are represented as top-level elements with Name
-    # attributes rather than AppliedFile child nodes.
-    for tag in ("SchemeGeodesicPlotting", "SchemeDisposition"):
-        node = root.find(tag)
-        if node is not None:
-            root.remove(node)
-
-    parcel = root.find(".//ExistParcel")
-    parcel_node_ids = {id(node) for node in parcel.iter()} if parcel is not None else set()
-
-    # Keep the source template's structure and attributes. ARGO parses Date as
-    # DateTime, geodetic-base OrdX/OrdY as numbers, and numeric parcel values as
-    # integers/doubles, so retain those source values.
-    for node in root.iter():
-        if node.tag in {"Date", "OrdX", "OrdY"}:
-            continue
-        value = (node.text or "").strip()
-        numeric_parcel_value = (
-            id(node) in parcel_node_ids
-            and re.fullmatch(r"[+-]?\d+(?:[.,]\d+)?", value) is not None
-        )
-        if not numeric_parcel_value:
-            node.text = None
     root.attrib["GUID"] = str(uuid.uuid4())
 
-    _set_client(root, family, first, patronymic, snils)
+    passport = extract_passport(consent_text)
+    _set_client(root, family, first, patronymic, snils, passport)
     _set_agreement(root, number, date)
+    _set_reason(root)
+
+    conclusion_node = root.find("Conclusion")
+    if conclusion_node is None:
+        raise ValueError("В шаблоне не найден узел Conclusion")
+    conclusion_template_path = template_xml.with_name("conclusion_template.txt")
+    if not conclusion_template_path.is_file():
+        raise ValueError("Рядом с программой не найден файл conclusion_template.txt")
+    conclusion_template = conclusion_template_path.read_text(encoding="utf-8")
+    parcel_address = extract_parcel_address(contract_text)
+    if parcel_address:
+        address_line = parcel_address
+    else:
+        address_line = "_"
+    conclusion_node.text = conclusion_template.replace("{{PARCEL_ADDRESS}}", address_line).strip()
 
     data = ET.tostring(root, encoding="utf-8", xml_declaration=True)
-    summary = _summary(family, first, patronymic, number, date, snils, additional)
+    summary = _summary(family, first, patronymic, number, date, snils, passport, parcel_address, additional)
     return data, summary

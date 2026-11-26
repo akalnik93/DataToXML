@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import queue
 import re
+import sys
 import threading
 import tkinter as tk
 from pathlib import Path
@@ -12,14 +13,19 @@ from tkinter import filedialog, messagebox, ttk
 from prototype_generate import build_application_only_xml, docx_text
 
 
-APP_DIR = Path(__file__).resolve().parent
-TEMPLATE = APP_DIR / "shablon_mezhevogo_plana.xml"
+def get_app_dir() -> Path:
+    if hasattr(sys, "_MEIPASS"):
+        return Path(sys._MEIPASS)
+    return Path(__file__).resolve().parent
 
+
+APP_DIR = get_app_dir()
+TEMPLATE = APP_DIR / "shablon_mezhevogo_plana.xml"
 
 class XmlDraftApp:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
-        self.root.title("МП на уточнение границ")
+        self.root.title("МП на уточнение границ — версия 0.0.21")
         self.root.geometry("650x470")
         self.root.minsize(520, 390)
         self.files: list[Path] = []
@@ -65,7 +71,7 @@ class XmlDraftApp:
     def choose_files(self) -> None:
         selected = filedialog.askopenfilenames(
             title="Выберите документы",
-            filetypes=[("Документы", "*.docx *.pdf *.xml"), ("Все файлы", "*.*")],
+            filetypes=[("Документы", "*.docx *.pdf *.xml")],
         )
         if not selected:
             return
@@ -142,7 +148,7 @@ class XmlDraftApp:
         self.status.set("Подготовка завершена. Выберите имя и место сохранения XML.")
         output = filedialog.asksaveasfilename(
             title="Сохранить черновик XML",
-            initialfile="draft_mpw_0.0.12.xml",
+            initialfile="draft_mpw_0.0.21.xml",
             defaultextension=".xml",
             filetypes=[("XML-файлы", "*.xml")],
         )
@@ -159,7 +165,8 @@ class XmlDraftApp:
         messagebox.showinfo(
             "XML создан",
             f"Файл сохранён:\n{output}\n\nВзято из {source_name}: {summary}\n\n"
-            "Числовые значения и координаты участка сохранены из шаблона и требуют проверки инженером. "
+            "Кадастровый номер, площадь и координаты участка не заполнены, поскольку их нет в трёх выбранных DOCX. "
+            "Заполните подсказки в заключении и данные участка в АРГО. "
             "Это черновик для проверки и дозаполнения в АРГО.",
         )
 
